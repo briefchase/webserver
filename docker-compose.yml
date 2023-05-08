@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+    apache:
+        build: .
+        hostname: OPTIONAL
+        container_name: OPTIONAL
+        volumes:
+            - './apache/apache2.conf:/etc/apache2/apache2.conf'
+            - './apache/site1.conf:/etc/apache2/sites-available/site1.conf'
+        ports:
+            - '80:80'
