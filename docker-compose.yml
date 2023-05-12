@@ -9,7 +9,7 @@ services:
             - 'traefik.http.routers.my-app.tls=true'
             - 'traefik.http.routers.my-app.tls.certresolver=lets-encrypt'
     traefik:
-        image: traefik:2.1
+        image: traefik:latest
         restart: always
         ports:
             - '80:80'

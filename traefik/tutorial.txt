@@ -1,2 +1,0 @@
-https://pentacent.medium.com/lets-encrypt-for-your-docker-app-in-less-than-5-minutes-24e5b38ca40b
-Dont forget to chmod 600 acme.json!
