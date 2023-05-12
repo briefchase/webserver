@@ -11,4 +11,3 @@
 
 [http.services]
   [http.services.noop]
-    [http.services.noop.loadBalancer]
