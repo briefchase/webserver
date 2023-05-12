@@ -8,3 +8,9 @@
 [http.middlewares]
   [http.middlewares.force-https.redirectScheme]
     scheme = "https"
+
+[http.services]
+  [http.services.noop]
+    [http.services.noop.loadBalancer]
+      [[http.services.noop.loadBalancer.servers]]
+        url = "http://briefchase.com"
