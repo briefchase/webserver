@@ -8,6 +8,3 @@
 [http.middlewares]
   [http.middlewares.force-https.redirectScheme]
     scheme = "https"
-
-[http.services]
-  [http.services.noop]
