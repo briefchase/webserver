@@ -10,4 +10,5 @@
     scheme = "https"
 
 [http.services]
-  [http.services.noop.loadbalancer]
+  [http.services.noop]
+    [http.services.noop.loadBalancer]
