@@ -17,3 +17,14 @@
   storage = "/etc/traefik/acme.json"
   email = "chaseglong@gmail.com"
   [certificatesResolvers.lets-encrypt.acme.tlsChallenge]
+
+[http.routers]
+  [http.routers.force-https]
+    entryPoints = ["http"]
+    middlewares = ["force-https"]
+    rule = "HostRegexp(`{any:.+}`)"
+    priority = 1
+
+[http.middlewares]
+  [http.middlewares.force-https.redirectScheme]
+    scheme = "https"
