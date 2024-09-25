@@ -1,19 +1,22 @@
 version: '3.3'
 services:
-    apache:
-        build: .
-        container_name: apache_container
-        labels:
-            - 'traefik.enable=true'
-            - 'traefik.http.routers.my-app.rule=Host(`briefchase.com`)'
-            - 'traefik.http.routers.my-app.tls=true'
-            - 'traefik.http.routers.my-app.tls.certresolver=lets-encrypt'
-    traefik:
-        image: traefik:latest
-        restart: always
-        ports:
-            - '80:80'
-            - '443:443'
-        volumes:
-            - ./traefik:/etc/traefik
-            - /var/run/docker.sock:/var/run/docker.sock:ro
+  apache:
+    build: .
+    container_name: apache_container
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.my-app.rule=Host(`briefchase.com`)'
+      - 'traefik.http.routers.my-app.entrypoints=http,https'
+      - 'traefik.http.routers.my-app.tls=true'
+      - 'traefik.http.routers.my-app.tls.certresolver=lets-encrypt'
+      - 'traefik.http.routers.my-app.priority=10'
+      - 'traefik.http.services.my-app.loadbalancer.server.port=80'
+  traefik:
+    image: traefik:latest
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./traefik:/etc/traefik
+      - /var/run/docker.sock:/var/run/docker.sock:ro
