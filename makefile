@@ -16,11 +16,11 @@ clean: clean-config
 setup: install-docker install-docker-compose verify-docker create-traefik-config create-acme-json create-docker-compose
 
 run:
-	@docker-compose up
+	@sudo docker-compose up
 	@$(MAKE) adjust-perms
 
 run-detached:
-	@docker-compose up -d
+	@sudo docker-compose up -d
 	@$(MAKE) adjust-perms
 
 install-docker:
@@ -45,47 +45,47 @@ install-docker-compose:
 	@echo "Docker Compose installed/upgraded."
 
 verify-docker:
-	@docker --version
-	@docker-compose --version
+	@sudo docker --version
+	@sudo docker-compose --version
 
 create-traefik-config:
 	@echo "Creating Traefik configuration..."
-	@mkdir -p traefik
-	@cp traefik/traefik.template.toml traefik/traefik.toml
-	@sed -i 's/{{EMAIL}}/$(EMAIL)/g' traefik/traefik.toml
-	@sed -i 's/{{EXTERNAL_DOMAIN}}/$(EXTERNAL_DOMAIN)/g' traefik/traefik.toml
+	@sudo mkdir -p traefik
+	@sudo cp traefik/traefik.template.toml traefik/traefik.toml
+	@sudo sed -i 's/{{EMAIL}}/$(EMAIL)/g' traefik/traefik.toml
+	@sudo sed -i 's/{{EXTERNAL_DOMAIN}}/$(EXTERNAL_DOMAIN)/g' traefik/traefik.toml
 	@echo "Traefik configuration created."
 
 create-acme-json:
 	@echo "Creating acme.json file..."
-	@touch traefik/acme.json
-	@chmod 600 traefik/acme.json
+	@sudo touch traefik/acme.json
+	@sudo chmod 600 traefik/acme.json
 	@echo "acme.json file created with correct permissions."
 
 create-docker-compose:
 	@echo "Creating docker-compose.yml..."
-	@cp docker-compose.template.yml docker-compose.yml
-	@sed -i 's/{{EXTERNAL_DOMAIN}}/$(EXTERNAL_DOMAIN)/g' docker-compose.yml
+	@sudo cp docker-compose.template.yml docker-compose.yml
+	@sudo sed -i 's/{{EXTERNAL_DOMAIN}}/$(EXTERNAL_DOMAIN)/g' docker-compose.yml
 	@echo "docker-compose.yml created."
 
 adjust-perms:
 	@echo "Adjusting permissions inside the Traefik container..."
-	@docker exec traefik_container chmod 600 /etc/traefik/acme.json
+	@sudo docker exec traefik_container chmod 600 /etc/traefik/acme.json
 	@echo "Permissions adjusted."
 
 clean-config:
 	@echo "Cleaning up configuration files..."
-	@rm -f traefik/traefik.toml
-	@rm -f traefik/acme.json
-	@rm -f docker-compose.yml
+	@sudo rm -f traefik/traefik.toml
+	@sudo rm -f traefik/acme.json
+	@sudo rm -f docker-compose.yml
 	@echo "Configuration files removed."
 
 docker-clean:
 	@echo "Stopping and removing all Docker containers..."
-	@docker-compose down --rmi all --volumes --remove-orphans
+	@sudo docker-compose down --rmi all --volumes --remove-orphans
 	@echo "Docker environment cleaned up."
 
 docker-nuke:
 	@echo "Removing all Docker data..."
-	@docker system prune -a -f --volumes
+	@sudo docker system prune -a -f --volumes
 	@echo "Docker system pruned."
