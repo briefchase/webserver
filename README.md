@@ -1,7 +1,7 @@
 # Deployment Steps:
 1. Create neccesary firewall rules (for GCP, AWS, or Azure)
 2. Clone this repository onto server
-3. Update, Upgrade and install make
+3. Update, upgrade and install make
  - ```sudo apt update && upgrade```
  - ```apt install make```
 4. Usage:
