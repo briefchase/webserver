@@ -9,7 +9,7 @@ EMAIL := chaseglong@gmail.com
 
 go: clean setup run
 live: clean setup run-detached
-clean: clean-config
+clean: clean-config docker-nuke
 
 # Helper targets
 
