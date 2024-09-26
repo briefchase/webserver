@@ -1,7 +1,5 @@
 # Variables
 
-DOCKER_COMPOSE_VERSION := 2.20.3
-DOCKER_COMPOSE_PATH := /usr/local/bin/docker-compose
 EXTERNAL_DOMAIN := briefchase.com
 EMAIL := chaseglong@gmail.com
 
@@ -9,27 +7,26 @@ EMAIL := chaseglong@gmail.com
 
 go: clean setup run
 live: clean setup run-detached
-clean: create-docker-compose stop clean-config docker-nuke
-
+clean: stop clean-config docker-nuke
 
 # Helper targets
 
 setup: install-docker install-docker-compose verify-docker create-traefik-config create-acme-json create-docker-compose
 
 run:
-	@sudo docker-compose up
+	@sudo docker compose up
 	@$(MAKE) adjust-perms
 
 run-detached:
-	@sudo docker-compose up -d
+	@sudo docker compose up -d
 	@$(MAKE) adjust-perms
 
 stop:
 	@echo "Stopping all running containers..."
 	@if [ -f docker-compose.yml ]; then \
-		sudo docker-compose down; \
+		sudo docker compose down; \
 	else \
-		echo "No docker-compose.yml found. Skipping docker-compose down."; \
+		echo "No docker-compose.yml found. Skipping docker compose down."; \
 	fi
 	@echo "All services stopped."
 
@@ -49,14 +46,18 @@ install-docker:
 	fi
 
 install-docker-compose:
-	@echo "Installing/upgrading Docker Compose to version $(DOCKER_COMPOSE_VERSION)..."
-	@sudo curl -L "https://github.com/docker/compose/releases/download/v$(DOCKER_COMPOSE_VERSION)/docker-compose-$$(uname -s)-$$(uname -m)" -o $(DOCKER_COMPOSE_PATH)
-	@sudo chmod +x $(DOCKER_COMPOSE_PATH)
-	@echo "Docker Compose installed/upgraded."
+	@echo "Checking for Docker Compose installation..."
+	@if ! docker compose version >/dev/null 2>&1; then \
+		echo "Docker Compose not found. Installing Docker Compose v2..."; \
+		sudo apt-get update; \
+		sudo apt-get install -y docker-compose-plugin; \
+	else \
+		echo "Docker Compose v2 is already installed."; \
+	fi
 
 verify-docker:
-	@sudo docker --version
-	@sudo docker-compose --version
+	@docker --version
+	@docker compose version
 
 create-traefik-config:
 	@echo "Creating Traefik configuration..."
@@ -92,7 +93,7 @@ clean-config:
 
 docker-clean:
 	@echo "Stopping and removing all Docker containers..."
-	@sudo docker-compose down --rmi all --volumes --remove-orphans
+	@sudo docker compose down --rmi all --volumes --remove-orphans
 	@echo "Docker environment cleaned up."
 
 docker-nuke:
