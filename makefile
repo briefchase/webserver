@@ -5,9 +5,9 @@ EMAIL := chaseglong@gmail.com
 
 # Main targets
 
-go: clean setup run
-live: clean setup run-detached
-clean: stop clean-config docker-nuke
+go: setup run
+live: setup run-detached
+clean: stop clean
 
 # Helper targets
 
