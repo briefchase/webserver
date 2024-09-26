@@ -1,11 +1,14 @@
 # Deployment Steps:
 1. Create neccesary firewall rules (for GCP, AWS, or Azure)
 2. Clone this repository onto server
-3. Update & Upgrade
- - 'sudo apt update && upgrade'
-4. Run the website
- - Refer to makefile for configuration and targets
- - 'make go'
+3. Update, Upgrade and install make
+ - ```sudo apt update && upgrade```
+ - ```apt install make```
+4. Usage:
+ - ```make go``` - mounted
+ - ```make live``` - headless
+ - ```make clean``` - nuke cattle
+5. Delete this repository (for production)
 
 # Info:
 This server makes use of:
