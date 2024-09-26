@@ -1,10 +1,11 @@
 # Deployment Steps:
 1. Create neccesary firewall rules (for GCP, AWS, or Azure)
 2. Clone this repository onto server
-3. Update & Upgrade, then install docker & docker-compose
-4. Run the following commands:
- - sudo chmod 600 traefik/acme.json
- - sudo docker-compose up -d
+3. Update & Upgrade
+ - 'sudo apt update && upgrade'
+4. Run the website
+ - Refer to makefile for configuration and targets
+ - 'make go'
 
 # Info:
 This server makes use of:
