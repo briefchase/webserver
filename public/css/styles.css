@@ -70,8 +70,9 @@ p {
   margin-bottom: 10px;
 }
 
-a:hover {
-  color: #32343a;
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
 }
 
 ul {
