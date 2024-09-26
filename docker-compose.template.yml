@@ -3,6 +3,10 @@ services:
   apache:
     build: .
     container_name: apache_container
+    environment:
+      SERVER_NAME: "{{EXTERNAL_DOMAIN}}"
+    command: >
+      sh -c "echo 'ServerName ${SERVER_NAME}' >> /usr/local/apache2/conf/httpd.conf && httpd-foreground"
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.my-app.rule=Host(`briefchase.com`) || Host(`www.briefchase.com`)'
