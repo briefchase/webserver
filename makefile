@@ -9,7 +9,8 @@ EMAIL := chaseglong@gmail.com
 
 go: clean setup run
 live: clean setup run-detached
-clean: stop clean-config docker-nuke
+clean: create-docker-compose stop clean-config docker-nuke
+
 
 # Helper targets
 
@@ -25,7 +26,11 @@ run-detached:
 
 stop:
 	@echo "Stopping all running containers..."
-	@sudo docker-compose down
+	@if [ -f docker-compose.yml ]; then \
+		sudo docker-compose down; \
+	else \
+		echo "No docker-compose.yml found. Skipping docker-compose down."; \
+	fi
 	@echo "All services stopped."
 
 install-docker:
