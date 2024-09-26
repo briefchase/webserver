@@ -70,20 +70,9 @@ p {
   margin-bottom: 10px;
 }
 
-a {
-  display: block;
-  -webkit-transition: opacity 200ms ease;
-  transition: opacity 200ms ease;
-  color: #1a1b1f;
-  text-decoration: underline;
-}
 
 a:hover {
   color: #32343a;
-}
-
-a:active {
-  color: #43464d;
 }
 
 ul {
