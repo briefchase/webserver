@@ -53,6 +53,7 @@ create-traefik-config:
 	@mkdir -p traefik
 	@cp traefik/traefik.template.toml traefik/traefik.toml
 	@sed -i 's/{{EMAIL}}/$(EMAIL)/g' traefik/traefik.toml
+	@sed -i 's/{{EXTERNAL_DOMAIN}}/$(EXTERNAL_DOMAIN)/g' traefik/traefik.toml
 	@echo "Traefik configuration created."
 
 create-acme-json:
