@@ -9,7 +9,7 @@ EMAIL := chaseglong@gmail.com
 
 go: clean setup run
 live: clean setup run-detached
-clean: clean-config docker-nuke
+clean: stop clean-config docker-nuke
 
 # Helper targets
 
@@ -22,6 +22,11 @@ run:
 run-detached:
 	@sudo docker-compose up -d
 	@$(MAKE) adjust-perms
+
+stop:
+	@echo "Stopping all running containers..."
+	@sudo docker-compose down
+	@echo "All services stopped."
 
 install-docker:
 	@echo "Checking for Docker installation..."
