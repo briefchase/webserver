@@ -6,7 +6,8 @@ services:
     environment:
       SERVER_NAME: "${{EXTERNAL_DOMAIN}}"
     command: >
-      sh -c "echo 'ServerName ${SERVER_NAME}' >> /usr/local/apache2/conf/httpd.conf && httpd-foreground"
+      /bin/sh -c "echo 'ServerName ${SERVER_NAME}' > /usr/local/apache2/conf/extra/httpd-vhosts.conf && httpd-foreground"
+
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.my-app.rule=Host(`${{EXTERNAL_DOMAIN}}`) || Host(`www.${{EXTERNAL_DOMAIN}}`)'
