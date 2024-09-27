@@ -8,7 +8,8 @@ live: setup run-detached
 clean: stop clean-config
 
 # Helper targets
-setup: install-docker install-docker-compose verify-docker create-traefik-config create-acme-json create-docker-compose
+setup: install-docker install-docker-compose verify-docker create-traefik-config create-traefik-force-https-config create-acme-json create-docker-compose
+
 run:
 	@sudo docker compose up
 	@$(MAKE) adjust-perms
@@ -58,10 +59,16 @@ verify-docker:
 create-traefik-config:
 	@echo "Creating Traefik configuration..."
 	@sudo mkdir -p traefik
-	@sudo cp traefik.template.toml traefik/traefik.toml
+	@sudo cp traefik/traefik.template.toml traefik/traefik.toml
 	@sudo -E sed -i 's|{{EMAIL}}|$(EMAIL)|g' traefik/traefik.toml
 	@sudo -E sed -i 's|{{EXTERNAL_DOMAIN}}|$(EXTERNAL_DOMAIN)|g' traefik/traefik.toml
 	@echo "Traefik configuration created."
+
+create-traefik-force-https-config:
+	@echo "Creating force-https configuration..."
+	@sudo cp force-https.template.toml traefik/force-https.toml
+	@sudo -E sed -i 's|${{EXTERNAL_DOMAIN}}|$(EXTERNAL_DOMAIN)|g' traefik/force-https.toml
+	@echo "force-https configuration created."
 
 create-acme-json:
 	@echo "Creating acme.json file..."
