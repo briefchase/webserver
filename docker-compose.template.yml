@@ -9,7 +9,7 @@ services:
       sh -c "echo 'ServerName ${SERVER_NAME}' >> /usr/local/apache2/conf/httpd.conf && httpd-foreground"
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.my-app.rule=Host(`briefchase.com`) || Host(`www.briefchase.com`)'
+      - 'traefik.http.routers.my-app.rule=Host(`{{EXTERNAL_DOMAIN}}`) || Host(`www.{{EXTERNAL_DOMAIN}}`)'
       - 'traefik.http.routers.my-app.entrypoints=http,https'
       - 'traefik.http.routers.my-app.tls=true'
       - 'traefik.http.routers.my-app.tls.certresolver=lets-encrypt'

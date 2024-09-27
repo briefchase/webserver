@@ -63,8 +63,8 @@ create-traefik-config:
 	@echo "Creating Traefik configuration..."
 	@sudo mkdir -p traefik
 	@sudo cp traefik/traefik.template.toml traefik/traefik.toml
-	@sudo sed -i 's/{{EMAIL}}/$(EMAIL)/g' traefik/traefik.toml
-	@sudo sed -i 's/{{EXTERNAL_DOMAIN}}/$(EXTERNAL_DOMAIN)/g' traefik/traefik.toml
+	@sudo -E sed -i 's/{{EMAIL}}/'"$(EMAIL)"'/g' traefik/traefik.toml
+	@sudo -E sed -i 's/{{EXTERNAL_DOMAIN}}/'"$(EXTERNAL_DOMAIN)"'/g' traefik/traefik.toml
 	@echo "Traefik configuration created."
 
 create-acme-json:
@@ -76,7 +76,7 @@ create-acme-json:
 create-docker-compose:
 	@echo "Creating docker-compose.yml..."
 	@sudo cp docker-compose.template.yml docker-compose.yml
-	@sudo sed -i 's/{{EXTERNAL_DOMAIN}}/$(EXTERNAL_DOMAIN)/g' docker-compose.yml
+	@sudo -E sed -i 's/{{EXTERNAL_DOMAIN}}/'"$(EXTERNAL_DOMAIN)"'/g' docker-compose.yml
 	@echo "docker-compose.yml created."
 
 adjust-perms:
