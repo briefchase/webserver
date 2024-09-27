@@ -14,23 +14,6 @@
     address = ":443"
 
 [certificatesResolvers.lets-encrypt.acme]
-  email = "{{EMAIL}}"
+  email = "${{EMAIL}}"
   storage = "/etc/traefik/acme.json"
   [certificatesResolvers.lets-encrypt.acme.tlsChallenge]
-
-[http.routers]
-  [http.routers.force-https]
-    entryPoints = ["http"]
-    rule = "HostRegexp(`{any:.+}`)"
-    middlewares = ["force-https"]
-    priority = 1
-    service = "noop"
-
-[http.middlewares]
-  [http.middlewares.force-https.redirectScheme]
-    scheme = "https"
-
-[http.services]
-  [http.services.noop.loadBalancer]
-    [[http.services.noop.loadBalancer.servers]]
-      url = "http://{{EXTERNAL_DOMAIN}}"

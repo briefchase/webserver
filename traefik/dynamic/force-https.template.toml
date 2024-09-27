@@ -1,8 +1,9 @@
 [http.routers]
   [http.routers.force-https]
     entryPoints = ["http"]
-    middlewares = ["force-https"]
     rule = "HostRegexp(`{any:.+}`)"
+    middlewares = ["force-https"]
+    priority = 1
     service = "noop"
 
 [http.middlewares]
@@ -10,7 +11,6 @@
     scheme = "https"
 
 [http.services]
-  [http.services.noop]
-    [http.services.noop.loadBalancer]
-      [[http.services.noop.loadBalancer.servers]]
-        url = "http://briefchase.com"
+  [http.services.noop.loadBalancer]
+    [[http.services.noop.loadBalancer.servers]]
+      url = "http://${{EXTERNAL_DOMAIN}}"
