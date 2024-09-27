@@ -66,7 +66,7 @@ create-traefik-config:
 
 create-traefik-force-https-config:
 	@echo "Creating force-https configuration..."
-	@sudo cp force-https.template.toml traefik/force-https.toml
+	@sudo cp traefik/dynamic/force-https.template.toml traefik/dynamic/force-https.toml
 	@sudo -E sed -i 's|${{EXTERNAL_DOMAIN}}|$(EXTERNAL_DOMAIN)|g' traefik/force-https.toml
 	@echo "force-https configuration created."
 
