@@ -1,0 +1,10 @@
+[http.routers]
+  [http.routers.force-https]
+    entryPoints = ["http"]
+    middlewares = ["force-https"]
+    rule = "HostRegexp(`{any:.+}`)"
+    service = "noop@internal"
+
+[http.middlewares]
+  [http.middlewares.force-https.redirectScheme]
+    scheme = "https"

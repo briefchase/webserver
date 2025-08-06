@@ -1,0 +1,23 @@
+[log]
+  level = "DEBUG" # Or INFO/DEBUG for more logs
+
+[providers]
+  [providers.docker]
+    exposedByDefault = false
+  [providers.file]
+    directory = "/etc/traefik/dynamic"
+    # watch = true # Uncomment to watch for dynamic config changes
+
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+    # Optional: Redirect HTTP to HTTPS (only if TLS is configured)
+    # [entryPoints.http.http.redirections]
+    #   [entryPoints.http.http.redirections.entryPoint]
+    #     to = "https"
+    #     scheme = "https"
+
+  [entryPoints.https]
+    address = ":443"
+
+# --- Certificate Resolver Section (added conditionally by script) ---

@@ -1,0 +1,22 @@
+# Local terraform state
+*.tfstate
+*.tfstate.*
+
+# .tfvars files should not be committed
+*.tfvars
+
+# Terraform provider lock file
+.terraform.lock.hcl
+
+# Terraform working directory
+.terraform/
+
+# Generated config
+config.json
+
+# Environment variables
+.env
+
+# Backup files
+*.tar.gz
+backup/
